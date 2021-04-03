@@ -2,4 +2,6 @@
     <string name="app_name">ProficiencyTest</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_fact_title">Sample fact title</string>
+    <string name="sample_fact_description">Hey, you are reading a sample description for fact..!!!!!</string>
 </resources>

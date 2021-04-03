@@ -18,4 +18,8 @@ data class Row(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id : Long? = null
+
+    fun isNotNull() : Boolean{
+        return this.title != null && this.description != null && this.imageHref != null
+    }
 }
