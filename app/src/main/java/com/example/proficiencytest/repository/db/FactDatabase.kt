@@ -8,7 +8,7 @@ import com.example.proficiencytest.model.response.Fact
 import com.example.proficiencytest.model.response.Row
 
 @Database(
-    entities = [Fact::class],
+    entities = [Row::class],
     version = 1,
     exportSchema = false
 )

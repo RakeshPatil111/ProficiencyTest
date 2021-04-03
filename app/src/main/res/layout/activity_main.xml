@@ -15,6 +15,5 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/facts_host"
             android:name="androidx.navigation.fragment.NavHostFragment"/>
-
     </FrameLayout>
 </layout>
