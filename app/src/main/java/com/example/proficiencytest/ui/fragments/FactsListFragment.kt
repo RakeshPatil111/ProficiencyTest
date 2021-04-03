@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.proficiencytest.R
 import com.example.proficiencytest.databinding.FragmentFactsListBinding
+import com.example.proficiencytest.model.response.Row
 import com.example.proficiencytest.ui.MainActivity
 import com.example.proficiencytest.ui.adapters.FactRecyclerViewAdapter
 import com.example.proficiencytest.util.Resource
@@ -47,7 +48,10 @@ class FactsListFragment : Fragment() {
         factsViewModel = (activity as MainActivity).factsViewModel
 
         setRecyclerView()
+
         setObserver()
+
+        setListener()
 
         return fragmentBinding.root
     }
@@ -61,7 +65,9 @@ class FactsListFragment : Fragment() {
 
     private fun setObserver() {
         factsViewModel.factsLocalLiveData.observe(viewLifecycleOwner, Observer { userList ->
-            userList.let {
+            Log.i("....", "........")
+            userList?.let {
+                setListToAdapter(it)
                 factAdapter.submitList(it)
             }
         })
@@ -77,7 +83,7 @@ class FactsListFragment : Fragment() {
 
                 is Resource.Error -> {
                     // We can show error for connections here
-                    Log.e("Error", response.message!!)
+                    Snackbar.make(fragmentBinding.rvFacts.rootView, "Getting Data From Server", Snackbar.LENGTH_SHORT).show()
                 }
 
                 is Resource.Success -> {
@@ -88,9 +94,7 @@ class FactsListFragment : Fragment() {
                         // lets store this locally
                         factResponse?.let { fact ->
                             fact.rows?.let {
-                                if (it.isNotEmpty()) {
-                                    factAdapter.submitList(it)
-                                }
+                                setListToAdapter(it)
                             }
                         }
                     }
@@ -99,8 +103,28 @@ class FactsListFragment : Fragment() {
         })
     }
 
+    private fun setListToAdapter(facts: List<Row>) {
+        if (facts.isNotEmpty()) {
+            factAdapter.submitList(facts)
+            fragmentBinding.rvFacts.visibility = View.VISIBLE
+            fragmentBinding.viewNoData.root.visibility = View.GONE
+        } else {
+            fragmentBinding.rvFacts.visibility = View.GONE
+            fragmentBinding.viewNoData.root.visibility = View.VISIBLE
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         factsViewModel.getFacts()
+    }
+
+    private fun setListener() {
+        fragmentBinding.swipeRefresh.setOnRefreshListener {
+            if (fragmentBinding.swipeRefresh.isRefreshing) {
+                fragmentBinding.swipeRefresh.isRefreshing = false
+                factsViewModel.getFacts()
+            }
+        }
     }
 }

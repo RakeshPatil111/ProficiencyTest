@@ -43,7 +43,6 @@ class FactsViewModel(
 
     private fun getFactsFromLocalStorage() {
         factsLocalLiveData = repository.getAllUsers()
-
     }
     private suspend fun getFactsFromServer() {
         factResponseLiveData.postValue(Resource.Loading())
@@ -86,7 +85,7 @@ class FactsViewModel(
     }
 
     // Insert all facts in db
-    fun insertAllFacts() = viewModelScope.launch {
+    private fun insertAllFacts() = viewModelScope.launch {
         try {
             factsLocalLiveData.value?.let {
                 val newItems = factsResponse?.rows?.subtract(it)
