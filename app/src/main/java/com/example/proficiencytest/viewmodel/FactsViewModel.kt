@@ -16,14 +16,17 @@ import kotlinx.coroutines.launch
 class FactsViewModel @ViewModelInject constructor(
     private val repository: FactRepository
 ) : ViewModel() {
+
     private val _factResponseLiveData: MutableLiveData<Event<Resource<Fact>>> = MutableLiveData()
     val factResponseLiveData = _factResponseLiveData
     var factsLocalLiveData: LiveData<List<Row>> = repository.getAllFacts()
 
+    // TODO add check for internet, if internet is not available, return local data
     fun getFacts() = viewModelScope.launch {
         getFactsFromServer()
     }
 
+    // Get Data from server
     private suspend fun getFactsFromServer() {
         _factResponseLiveData.value = Event(Resource.Loading())
         val response = repository.getFactsFromServer()
@@ -34,7 +37,6 @@ class FactsViewModel @ViewModelInject constructor(
     fun insertAllFacts(facts: List<Row>) = viewModelScope.launch {
         try {
             var result = repository.insertFacts(facts)
-            Log.i("Error :: ", result.toString())
         } catch (e: Exception) {
             Log.e("Error :: ", e.localizedMessage)
         }

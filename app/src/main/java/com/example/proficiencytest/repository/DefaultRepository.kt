@@ -1,12 +1,14 @@
 package com.example.proficiencytest.repository
 
 import androidx.lifecycle.LiveData
+import com.example.proficiencytest.R
 import com.example.proficiencytest.model.response.Fact
 import com.example.proficiencytest.model.response.Row
 import com.example.proficiencytest.repository.db.FactDAO
 import com.example.proficiencytest.repository.db.FactDatabase
 import com.example.proficiencytest.repository.network.FactAPI
 import com.example.proficiencytest.util.Resource
+import com.example.proficiencytest.util.ResourceHelper
 import javax.inject.Inject
 
 class DefaultRepository @Inject constructor(private val factDAO: FactDAO,
@@ -26,12 +28,12 @@ class DefaultRepository @Inject constructor(private val factDAO: FactDAO,
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
-                } ?: Resource.Error("Server error", null)
+                } ?: Resource.Error(ResourceHelper.getString(R.string.msg_server_error), null)
             } else {
-                Resource.Error("Server error", null)
+                Resource.Error(ResourceHelper.getString(R.string.msg_server_error), null)
             }
         } catch (e : Exception) {
-            Resource.Error("Please check your connection", null)
+            Resource.Error(ResourceHelper.getString(R.string.msg_pls_check_internet), null)
         }
     }
 }

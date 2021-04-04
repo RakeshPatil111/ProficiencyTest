@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.proficiencytest.R
 import com.example.proficiencytest.databinding.FragmentFactsListBinding
 import com.example.proficiencytest.model.response.Row
 import com.example.proficiencytest.ui.adapters.FactRecyclerViewAdapter
@@ -19,10 +20,6 @@ class FactsListFragment : Fragment() {
     lateinit var fragmentBinding: FragmentFactsListBinding
     lateinit var factsViewModel: FactsViewModel
     lateinit var factAdapter: FactRecyclerViewAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,23 +45,21 @@ class FactsListFragment : Fragment() {
         }
     }
 
+    // Observe local and remote data changes
     private fun setObserver() {
         factsViewModel.factsLocalLiveData.observe(viewLifecycleOwner, Observer { userList ->
             userList?.let {
                 setListToAdapter(it)
-                Log.i("....", "${it.size}")
             }
         })
 
-
-        // Observer server data
         factsViewModel.factResponseLiveData.observe(viewLifecycleOwner, Observer { response ->
             when (val value = response.getContentIfNotHandled()) {
                 is Resource.Loading -> {
                     // we can show progress here
                     Snackbar.make(
                         fragmentBinding.rvFacts.rootView,
-                        "Getting Data From Server",
+                        getString(R.string.msg_loading_getting_data),
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

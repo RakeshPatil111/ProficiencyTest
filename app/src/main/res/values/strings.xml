@@ -5,4 +5,7 @@
     <string name="sample_fact_title">Sample fact title</string>
     <string name="sample_fact_description">Hey, you are reading a sample description for fact..!!!!!</string>
     <string name="no_data_found">No data found, Pull down to refresh</string>
+    <string name="msg_server_error">Server error</string>
+    <string name="msg_pls_check_internet">Please check your connection</string>
+    <string name="msg_loading_getting_data">Getting Data From Server</string>
 </resources>
