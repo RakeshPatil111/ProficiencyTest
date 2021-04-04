@@ -11,15 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.proficiencytest.R
 import com.example.proficiencytest.databinding.FragmentFactsListBinding
 import com.example.proficiencytest.model.response.Row
+import com.example.proficiencytest.ui.MainActivity
 import com.example.proficiencytest.ui.adapters.FactRecyclerViewAdapter
 import com.example.proficiencytest.util.Resource
 import com.example.proficiencytest.viewmodel.FactsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class FactsListFragment : Fragment() {
-    lateinit var fragmentBinding: FragmentFactsListBinding
-    lateinit var factsViewModel: FactsViewModel
-    lateinit var factAdapter: FactRecyclerViewAdapter
+    private lateinit var fragmentBinding: FragmentFactsListBinding
+    private lateinit var factsViewModel: FactsViewModel
+    private lateinit var factAdapter: FactRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +75,7 @@ class FactsListFragment : Fragment() {
 
                 is Resource.Success -> {
                     value.data?.let {
+                        (activity as MainActivity).supportActionBar?.setTitle(it.title)
                         it.rows?.let { facts ->
                             setListToAdapter(facts)
                             factsViewModel.insertAllFacts(facts)
