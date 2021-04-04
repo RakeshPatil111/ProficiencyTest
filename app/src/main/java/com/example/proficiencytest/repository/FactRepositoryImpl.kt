@@ -11,8 +11,13 @@ import com.example.proficiencytest.util.Resource
 import com.example.proficiencytest.util.ResourceHelper
 import javax.inject.Inject
 
-class DefaultRepository @Inject constructor(private val factDAO: FactDAO,
-    private val factAPI: FactAPI) : FactRepository {
+/**
+ * FactRepo implemented here
+ * This class knows from where to take data needed for app
+ * It should not know who is asking for data, just give it
+ * */
+class FactRepositoryImpl @Inject constructor(private val factDAO: FactDAO,
+                                             private val factAPI: FactAPI) : FactRepository {
 
     override suspend fun insertFacts(facts: List<Row>): List<Long> {
         return factDAO.insertAllFacts(facts)

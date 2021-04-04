@@ -4,6 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.proficiencytest.model.response.Row
 
+/**
+ * Base Repository
+ * Implement this repo in classes
+ * Add all db operations here, only method declarations
+ * */
 @Dao
 interface FactDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

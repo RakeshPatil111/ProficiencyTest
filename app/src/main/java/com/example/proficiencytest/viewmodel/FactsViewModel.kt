@@ -13,6 +13,12 @@ import com.example.proficiencytest.util.Event
 import com.example.proficiencytest.util.Resource
 import kotlinx.coroutines.launch
 
+/**
+ * Maintain state of app
+ * Save all values here
+ * Emit events through liveData whenever there is change in state
+ * */
+// TODO add check for internet, if internet is not available, return local data
 class FactsViewModel @ViewModelInject constructor(
     private val repository: FactRepository
 ) : ViewModel() {
@@ -21,7 +27,6 @@ class FactsViewModel @ViewModelInject constructor(
     val factResponseLiveData = _factResponseLiveData
     var factsLocalLiveData: LiveData<List<Row>> = repository.getAllFacts()
 
-    // TODO add check for internet, if internet is not available, return local data
     fun getFacts() = viewModelScope.launch {
         getFactsFromServer()
     }

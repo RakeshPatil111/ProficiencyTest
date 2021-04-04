@@ -17,7 +17,7 @@ data class Row(
     @SerializedName("title")
     var title: String
 ) {
-    fun isNotNull() : Boolean{
+    fun isNotNull(): Boolean {
         return this.title != null || this.description != null || this.imageHref != null
     }
 }

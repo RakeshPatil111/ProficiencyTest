@@ -9,10 +9,11 @@ import com.example.proficiencytest.databinding.ItemFactBinding
 import com.example.proficiencytest.model.response.Row
 import com.example.proficiencytest.util.FactDiffUtil
 
-class FactRecyclerViewAdapter : ListAdapter<Row, FactRecyclerViewAdapter.FactViewHolder>(FactDiffUtil()) {
+// Adapter class for fact
+class FactRecyclerViewAdapter :
+    ListAdapter<Row, FactRecyclerViewAdapter.FactViewHolder>(FactDiffUtil()) {
 
-
-    inner class FactViewHolder(val view : ItemFactBinding) : RecyclerView.ViewHolder(view.root)
+    inner class FactViewHolder(val view: ItemFactBinding) : RecyclerView.ViewHolder(view.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FactViewHolder {
         val inflater = LayoutInflater.from(parent.context)

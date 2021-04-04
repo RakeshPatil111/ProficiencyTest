@@ -1,9 +1,8 @@
 package com.example.proficiencytest.di
 
 import android.content.Context
-import android.provider.SyncStateContract
 import androidx.room.Room
-import com.example.proficiencytest.repository.DefaultRepository
+import com.example.proficiencytest.repository.FactRepositoryImpl
 import com.example.proficiencytest.repository.FactRepository
 import com.example.proficiencytest.repository.db.FactDAO
 import com.example.proficiencytest.repository.db.FactDatabase
@@ -35,7 +34,7 @@ object AppModule {
     fun provideFactDAO(database: FactDatabase) = database.getFactDao()
 
     @Provides
-    fun provideDefaultRepository(dao: FactDAO, api: FactAPI) = DefaultRepository(dao, api) as FactRepository
+    fun provideDefaultRepository(dao: FactDAO, api: FactAPI) = FactRepositoryImpl(dao, api) as FactRepository
 
     @Singleton
     @Provides

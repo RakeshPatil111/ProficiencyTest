@@ -1,6 +1,5 @@
 package com.example.proficiencytest.util
 
-import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -14,7 +13,7 @@ import com.example.proficiencytest.R
  * Here we have used cache for images so we can see them offline (Glide Cahche Strategy)
  */
 @BindingAdapter("loadImage")
-fun loadImage(imageView : ImageView, url : String?) {
+fun loadImage(imageView: ImageView, url: String?) {
     if (url != null) {
         val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
         Glide.with(imageView.context)
