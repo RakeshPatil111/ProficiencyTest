@@ -7,7 +7,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.proficiencytest.HiltTestRunner
 import com.example.proficiencytest.getOrAwaitValue
+import com.example.proficiencytest.launchFragmentInHiltContainer
 import com.example.proficiencytest.model.response.Row
+import com.example.proficiencytest.ui.fragments.FactsListFragment
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -45,6 +47,13 @@ class FactDAOTest {
     @After
     fun teardown() {
         factDatabase.close()
+    }
+
+    @Test
+    fun testLaunchFragment() {
+        launchFragmentInHiltContainer<FactsListFragment> {
+
+        }
     }
 
     @Test
