@@ -6,8 +6,8 @@ import com.example.proficiencytest.model.response.Row
 
 @Dao
 interface FactDAO {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllFacts(facts : List<Row>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAllFacts(facts : List<Row>) : List<Long>
 
     @Query("select * from facts")
     fun getAllFacts() : LiveData<List<Row>>

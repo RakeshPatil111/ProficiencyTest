@@ -13,13 +13,11 @@ data class Row(
     var description: String?,
     @SerializedName("imageHref")
     var imageHref: String?,
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("title")
-    var title: String?
+    var title: String
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var id : Long? = null
-
     fun isNotNull() : Boolean{
-        return this.title != null && this.description != null && this.imageHref != null
+        return this.title != null || this.description != null || this.imageHref != null
     }
 }

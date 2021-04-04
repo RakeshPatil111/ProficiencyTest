@@ -1,13 +1,14 @@
 package com.example.proficiencytest.repository
 
+import androidx.lifecycle.LiveData
+import com.example.proficiencytest.model.response.Fact
 import com.example.proficiencytest.model.response.Row
-import com.example.proficiencytest.repository.db.FactDatabase
-import com.example.proficiencytest.repository.network.RetrofitClient
+import com.example.proficiencytest.util.Resource
 
-class FactRepository(private val factDb : FactDatabase){
-    suspend fun insertFacts(facts : List<Row>) = factDb.getFactDao().insertAllFacts(facts)
+interface FactRepository {
+    suspend fun insertFacts(facts: List<Row>) : List<Long>
 
-    fun getAllUsers() = factDb.getFactDao().getAllFacts()
+    fun getAllFacts(): LiveData<List<Row>>
 
-    suspend fun getFactsFromServer() = RetrofitClient.api.getFacts()
+    suspend fun getFactsFromServer() : Resource<Fact>
 }

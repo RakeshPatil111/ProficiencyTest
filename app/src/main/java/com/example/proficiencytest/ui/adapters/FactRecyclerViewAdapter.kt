@@ -22,9 +22,7 @@ class FactRecyclerViewAdapter : ListAdapter<Row, FactRecyclerViewAdapter.FactVie
     }
 
     override fun onBindViewHolder(holder: FactViewHolder, position: Int) {
-        var fact = getItem(position)
-        holder.view.fact = fact
-        fact.id = System.currentTimeMillis() + position
+        holder.view.fact = getItem(position)
 
         if (getItem(position).imageHref.isNullOrEmpty()) {
             holder.view.ivFact.visibility = View.GONE
